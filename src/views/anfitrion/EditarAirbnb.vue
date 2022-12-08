@@ -330,11 +330,34 @@ import AnfitrionHeaderComponent from '../../components/ainfitrion/AnfitrionHeade
                             <div class="card-body p-lg-5">
                                 <form id="loginForm" action="">
                                     <div class="row">
+                                        <!-- <div class="col-lg-12 mx-auto">
+                                            <p>Elige una imagen que se mostrará en la portada de tu anuncio, asegúrate
+                                                que sea una imagen que capte la atención de los usuarios.</p>
+                                                <div>
+                                                    <input type="file">
+                                                </div>
+                                            <div class="input-group px-2 py-2 rounded-pill bg-white shadow-sm">
+                                                <input id="upload" type="file"
+                                                    class="form-control border-0">
+                                                <label id="upload-label" for="upload"
+                                                    class="font-weight-light text-muted">Subir portada</label>
+                                                <div class="input-group-append">
+                                                    <label for="upload" class="btn btn-light m-0 rounded-pill px-4">
+                                                        <i class="fa fa-cloud-upload mr-2 text-muted"></i><small
+                                                            class="font-weight-bold text-muted mx-2">Elegir</small></label>
+                                                </div>
+                                            </div>
+                                            <div class="row d-flex justify-content-center">
+                                                <div class="image-area"><img id="imageResult" :src="'http://127.0.0.1:8000/storage/cover/'+form.cover" alt=""
+                                                        class="img-fluid rounded shadow-sm mx-auto d-block">
+                                                </div>
+                                            </div>
+                                        </div> -->
                                         <div class="col-lg-12 mx-auto">
                                             <p>Elige una imagen que se mostrará en la portada de tu anuncio, asegúrate
                                                 que sea una imagen que capte la atención de los usuarios.</p>
                                             <div class="input-group px-2 py-2 rounded-pill bg-white shadow-sm">
-                                                <input id="upload" type="file"
+                                                <input id="upload" type="file" @change="AddFile" onchange="readURL(this);"
                                                     class="form-control border-0">
                                                 <label id="upload-label" for="upload"
                                                     class="font-weight-light text-muted">Subir portada</label>
@@ -492,8 +515,16 @@ import axios from 'axios';
             })
         },
         methods:{
+            AddFile(e) {
+                this.form.cover = e.target.files[0];
+            },
             editar(){
-                axios.put('/v1/properties/'+this.propiedadId,this.form)
+                let form = new FormData();
+                for (let key in this.form){
+                    form.append(key, this.form[key])
+                }
+                //axios.put('/v1/properties/'+this.propiedadId,this.form)
+                axios.post('/v1/properties/'+this.propiedadId+'?_method=PUT', form)
                 .then(response => {
                     console.log(this.form);
                 })

@@ -11,7 +11,7 @@
                                 <RouterLink class="nav-link" to="/">Cuenta</RouterLink>
                             </li>
                             <hr>
-                            <li><a href="#">Volver a modo huésped</a></li>
+                            <li><a href="/">Volver a modo huésped</a></li>
                             <li><a href="#">Ayuda</a></li>
                         </ul>
                     </li>

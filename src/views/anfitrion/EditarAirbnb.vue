@@ -24,7 +24,7 @@ import AnfitrionHeaderComponent from '../../components/ainfitrion/AnfitrionHeade
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="form-floating mb-4">
-                                                <input class="form-control selecciones" id="floatingInput" v-model="form.name" type="text"
+                                                <input class="form-control selecciones" id="floatingInput"  v-model="form.name" type="text"
                                                     placeholder="" required>
                                                 <label for="floatingInput">Idea un título llamativo</label>
                                             </div>
@@ -465,21 +465,21 @@ import axios from 'axios';
             this.propiedadId = this.$route.params.id;
             axios.get('/v1/properties/'+ this.propiedadId)
             .then(response => {
-                this.form.name = response.data.name;
-                this.form.description = response.data.description;
-                this.form.price = response.data.price;
-                this.form.category_id = response.data.category.category_id;
-                this.form.subcategory_id = response.data.subcategory.subcategory_id;
-                this.form.room_type_id = response.data.room_type.room_type_id;
-                this.form.country_id = response.data.country.country_id;
-                this.form.state_id = response.data.state.state_id;
-                this.form.city_id = response.data.city.city_id;
-                this.form.address = response.data.location.address;
-                this.form.accommodate_count = response.data.accommodate_count;
-                this.form.bedroom_count = response.data.bedroom_count;
-                this.form.bed_count = response.data.bed_count;
-                this.form.bathroom_count = response.data.bathroom_count;
-                this.form.cover = response.data.cover;
+                this.form.name = response.data.data.name;
+                this.form.description = response.data.data.description;
+                this.form.price = response.data.data.price;
+                this.form.category_id = response.data.data.category.category_id;
+                this.form.subcategory_id = response.data.data.subcategory.subcategory_id;
+                this.form.room_type_id = response.data.data.room_type.room_type_id;
+                this.form.country_id = response.data.data.country.country_id;
+                this.form.state_id = response.data.data.state.state_id;
+                this.form.city_id = response.data.data.city.city_id;
+                this.form.address = response.data.data.location.address;
+                this.form.accommodate_count = response.data.data.accommodate_count;
+                this.form.bedroom_count = response.data.data.bedroom_count;
+                this.form.bed_count = response.data.data.bed_count;
+                this.form.bathroom_count = response.data.data.bathroom_count;
+                this.form.cover = response.data.data.cover;
                 
                 console.log(this.form);
             }),

@@ -82,7 +82,7 @@ import AnfitrionHeaderComponent from '../../components/ainfitrion/AnfitrionHeade
                         <td>{{ index + 1}}</td>
                         <td>
                             <div class="row">
-                                <div class="col-3">
+                                <div class="col-4">
                                     <img :src="'http://127.0.0.1:8000/storage/cover/'+properties.cover" alt="cover-airbnb" id="cover-table-airbnb">
                                 </div>
                                 <div class="col-6 d-flex align-items-center">

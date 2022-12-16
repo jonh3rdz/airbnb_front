@@ -5,7 +5,9 @@ const storage = createStore({
     state: {
         isAuthenticated: false,
         name: '',
-        lastname: ''
+        lastname: '',
+        isRole: '',
+        id: ''
     },
     mutations: {
         setAuthenticated(state, value)
@@ -16,6 +18,14 @@ const storage = createStore({
         {
             state.name = name;
             state.lastname = lastname;
+        },
+        setRole(state, role)
+        {
+            state.isRole = role;
+        },
+        setId(state, id)
+        {
+            state.id = id;
         },
     },
     plugins: [

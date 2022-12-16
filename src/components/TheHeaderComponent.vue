@@ -5,7 +5,8 @@
             <nav id="navbar" class="navbar">
                 <ul>
                     <li>
-                        <RouterLink class="nav-link" v-if="$store.state.isAuthenticated" to="/panel">Hazte anfitrión</RouterLink>
+                        <RouterLink class="nav-link" v-if="$store.state.isAuthenticated && $store.state.isRole == 'isGuest'" @click="change_role()" to="/panel">Hazte anfitrión</RouterLink>
+                        <RouterLink class="nav-link" v-if="$store.state.isAuthenticated && $store.state.isRole == 'isHost'" to="/panel">Modo anfitrión</RouterLink>
                     </li>
                     <!-- <div class="dropdown active">
                         <button type="button" class="c1grjlav crawnjq dir dir-ltr" aria-expanded="false" aria-label="Menú de navegación principal" data-testid="cypress-headernav-profile">
@@ -93,6 +94,11 @@
 <script>
 //importing bootstrap 5 Modules
 export default {
+    data() {
+            return {
+                Id: 11,
+            }
+        },
     methods: {
         //cerrar sesion
         async cerrar_sesion()
@@ -101,7 +107,29 @@ export default {
             .then(response => {
                 this.$store.commit('setAuthenticated', false);
                 this.$store.commit('setUserdata','');
+                this.$store.commit('setRole','');
+                this.$store.commit('setId','');
                 localStorage.removeItem('token');
+                localStorage.removeItem('id');
+                //this.$router.push('/');
+            })
+            .catch(error => {
+                var data = error.response.data;
+            });
+        },
+        computed: {
+            isId() {
+                return this.$store.state.id
+                console.log(this.isId);
+            },
+        },
+        async change_role()
+        {
+            var isId = localStorage.getItem('id');
+            this.id = isId;
+            await this.axios.post('/v1/propertiesrole/'+this.id)
+            .then(response => {
+                this.$store.commit('setRole','isHost');
                 //this.$router.push('/');
             })
             .catch(error => {
@@ -109,6 +137,12 @@ export default {
             });
         },
     },
+    // computed: {
+    //     condition() {
+    //         this.FullName;
+    //         return this.FullName !== null && this.FullName !== '';
+    //     }
+    // }
 }
 </script>
 

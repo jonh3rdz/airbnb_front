@@ -132,8 +132,11 @@ export default {
             .then(response => {
                 this.axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.token;
                 localStorage.setItem('token', response.data.token);
+                localStorage.setItem('id', response.data.usuario.id);
                 this.$store.commit('setAuthenticated', true);
                 this.$store.commit('setUserdata', response.data.usuario.name + ' ' + response.data.usuario.lastname);
+                this.$store.commit('setId', response.data.usuario.id);
+                this.$store.commit('setRole', response.data.usuario.role);
                 this.$router.push('/');
             })
             .catch(error => {
@@ -151,8 +154,12 @@ export default {
             };
             await this.axios.post('/v1/register', payload)
             .then(response => {
-                localStorage.setItem('name', response.data.user.name);
-                localStorage.setItem('email', response.data.user.email);
+                this.axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.token;
+                localStorage.setItem('token', response.data.token);
+                localStorage.setItem('id', response.data.usuario.id);
+                this.$store.commit('setAuthenticated', true);
+                this.$store.commit('setUserdata', response.data.usuario.name + ' ' + response.data.usuario.lastname);
+                this.$store.commit('setRole', response.data.usuario.role);
                 this.$router.push('/');
             })
             .catch(error => {
